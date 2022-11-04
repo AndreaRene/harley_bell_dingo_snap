@@ -22,7 +22,7 @@ module.exports = () => {
         template: "./index.html",
         title: "JATE",
       }),
-      // inject custom service work
+      // inject custom service worker
       new InjectManifest({
         swSrc: "./src-sw.js",
         swDest: "src-sw.js",
