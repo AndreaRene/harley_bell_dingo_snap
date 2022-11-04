@@ -6,20 +6,23 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 module.exports = () => {
   return {
     mode: 'development',
+    //entry point for files
     entry: {
       main: './src/js/index.js',
       install: './src/js/install.js'
     },
+    //output for bundles
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+      //generate html file and inject bundles
       new HtmlWebpackPlugin({
         template: "./index.html",
         title: "JATE",
       }),
-      //  custom service work
+      // inject custom service work
       new InjectManifest({
         swSrc: "./src-sw.js",
         swDest: "src-sw.js",
@@ -30,7 +33,7 @@ module.exports = () => {
         inject: true,
         name: "Just Another Text Editor",
         short_name: "JATE",
-        description: "Text Editor with offline capabilities using IndexedDB",
+        description: "Text Editor for online and offline use",
         background_color: "#225ca3",
         theme_color: "#225ca3",
         start_url: "/",
@@ -46,6 +49,7 @@ module.exports = () => {
     ],
 
     module: {
+      // css loaders
       rules: [
         {
           test: /\.css$/,
@@ -56,6 +60,7 @@ module.exports = () => {
         {
           test: /\.m?js$/,
           exclude: /node_modules/,
+          // babel loader
           use: {
             loader: "babel-loader",
             options: {
@@ -69,7 +74,6 @@ module.exports = () => {
             },
           },
         }
-
       ],
     },
   };
